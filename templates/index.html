@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Internship Compatibility Dashboard</title>
+    <!-- Google Fonts: Poppins -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="static/style.css">
+</head>
+
+<body class="compatibility-page">
+    <div class="dashboard-container">
+        <!-- Left Column: Input Form -->
+        <aside class="input-panel">
+            <div class="panel-header">
+                <h2>Match criteria</h2>
+                <p>Enter your details to find optimal internships.</p>
+            </div>
+
+            <form id="compatibilityForm" class="styled-form">
+                <div class="form-group">
+                    <label for="skills">Technical Skills (comma-separated)</label>
+                    <textarea id="skills" name="skills" rows="3" spellcheck="false" autocomplete="off" required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="cgpa">Current CGPA</label>
+                    <input type="number" id="cgpa" name="cgpa" step="0.1" min="0" max="10" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="interest">Interest / Passion</label>
+                    <input type="text" id="interest" name="interest" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="domain">Preferred Domain</label>
+                    <select id="domain" name="domain" required>
+                        <option value="" disabled selected>Select a domain</option>
+                        <option value="Web Development">Web Development</option>
+                        <option value="Backend Development">Backend Development</option>
+                        <option value="Mobile Development">Mobile Development</option>
+                        <option value="Cybersecurity">Cybersecurity</option>
+                        <option value="DevOps">DevOps</option>
+                        <option value="Cloud Computing">Cloud Computing</option>
+                        <option value="Blockchain">Blockchain</option>
+                        <option value="Software Testing">Software Testing</option>
+                        <option value="Data Science">Data Science</option>
+                        <option value="AI/ML">AI / Machine Learning</option>
+                        <option value="UI/UX Design">UI/UX Design</option>
+                    </select>
+                </div>
+
+                <button type="submit" id="submitBtn" class="primary-btn">Check Compatibility</button>
+            </form>
+        </aside>
+
+        <!-- Right Column: Results -->
+        <main class="results-panel">
+            <div class="panel-header">
+                <h2>Compatibility Results</h2>
+                <p>Your ideal career matches based on the final index score.</p>
+                <a href="{{ url_for('results') }}" class="primary-btn" style="display: inline-block; text-align: center; margin-top: 15px; text-decoration: none; max-width: 250px;">View Detailed Analytics</a>
+            </div>
+
+            <div id="resultsContainer" class="results-container">
+                <div class="empty-state">
+                    <div class="spinner-icon">🔍</div>
+                    <h3>Awaiting Input...</h3>
+                    <p>Submit your skills and preferences to discover your matches.</p>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="static/script.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Results & Discussion Dashboard</title>
+    <!-- Google Fonts: Poppins -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="static/style.css">
+    <link rel="stylesheet" href="static/results.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="compatibility-page">
+    <div class="results-dashboard-container">
+        <div class="dashboard-header">
+            <div>
+                <h1>Analytics & Discussion Dashboard</h1>
+                <p>Comprehensive overview of compatibility scores and skill gaps.</p>
+            </div>
+            <a href="{{ url_for('home') }}" class="primary-btn back-btn" style="text-decoration: none;">&larr; Back to Matcher</a>
+        </div>
+
+        <div class="analytics-grid">
+            <!-- 1. Compatibility Score Analysis (Bar Chart) -->
+            <div class="glass-card chart-card">
+                <h3>Compatibility Score Analysis</h3>
+                <div class="chart-container">
+                    <canvas id="compatibilityBarChart"></canvas>
+                </div>
+            </div>
+
+            <!-- 2. Domain Match Comparison (Pie Chart) -->
+            <div class="glass-card chart-card">
+                <h3>Domain Match Comparison</h3>
+                <div class="chart-container pie-container">
+                    <canvas id="domainPieChart"></canvas>
+                </div>
+            </div>
+
+            <!-- 3. User Performance Visualization (Line Chart) -->
+            <div class="glass-card chart-card full-width">
+                <h3>User Performance Visualization</h3>
+                <div class="chart-container">
+                    <canvas id="performanceLineChart"></canvas>
+                </div>
+            </div>
+
+            <!-- 4. Internship Compatibility Trend Graph -->
+            <div class="glass-card chart-card full-width">
+                <h3>Internship Compatibility Trend Graph</h3>
+                <div class="chart-container">
+                    <canvas id="trendAreaChart"></canvas>
+                </div>
+            </div>
+
+            <!-- 5. Skill Gap Analysis Table -->
+            <div class="glass-card chart-card">
+                <h3>Skill Gap Analysis</h3>
+                <div class="table-container">
+                    <table class="glass-table">
+                        <thead>
+                            <tr>
+                                <th>Skill</th>
+                                <th>Status</th>
+                                <th>Importance</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Python</td>
+                                <td><span class="badge success">Mastered</span></td>
+                                <td>High</td>
+                            </tr>
+                            <tr>
+                                <td>React.js</td>
+                                <td><span class="badge warning">Developing</span></td>
+                                <td>Medium</td>
+                            </tr>
+                            <tr>
+                                <td>Docker</td>
+                                <td><span class="badge error">Missing</span></td>
+                                <td>High</td>
+                            </tr>
+                            <tr>
+                                <td>SQL</td>
+                                <td><span class="badge success">Mastered</span></td>
+                                <td>High</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- 6. Recommendation Analysis Cards -->
+            <div class="glass-card chart-card">
+                <h3>Recommendation Analysis</h3>
+                <div class="recommendations-list">
+                    <div class="rec-item-glass">
+                        <span class="rec-icon">📚</span>
+                        <div class="rec-text">
+                            <strong>Containerization Basics</strong>
+                            <p>Complete a Docker tutorial to fill your critical skill gap.</p>
+                        </div>
+                    </div>
+                    <div class="rec-item-glass">
+                        <span class="rec-icon">💻</span>
+                        <div class="rec-text">
+                            <strong>Advanced React Concepts</strong>
+                            <p>Brush up on Hooks and Context API for frontend roles.</p>
+                        </div>
+                    </div>
+                    <div class="rec-item-glass">
+                        <span class="rec-icon">🏆</span>
+                        <div class="rec-text">
+                            <strong>Data Science Bootcamp</strong>
+                            <p>Your profile is highly suited for Data Engineering roles.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="static/results.js"></script>
+</body>
+</html>

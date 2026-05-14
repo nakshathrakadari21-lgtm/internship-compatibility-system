@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Internship Dashboard</title>
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="static/style.css">
+</head>
+
+<body class="auth-body">
+    <div class="auth-container">
+        <!-- Left Side: Illustration / Gradient -->
+        <div class="auth-left">
+            <div class="auth-illustration">
+                <h1>Discover Your Perfect Career Match ✨</h1>
+                <p>Sign in to configure your skills, review comprehensive matches, and access tailored domain
+                    recommendations.</p>
+            </div>
+        </div>
+
+        <!-- Right Side: Forms (Glassmorphism) -->
+        <div class="auth-right">
+            <div class="glass-card">
+
+                <!-- LOGIN FORM -->
+                <form id="loginForm" class="auth-form active" method="POST" action="{{ url_for('login') }}">
+                    <div class="auth-header">
+                        <h2>Welcome back</h2>
+                        <p>Sign in to your account</p>
+                    </div>
+
+                    <div class="form-group-icon">
+                        <label for="loginEmail">Email</label>
+                        <div class="input-wrapper">
+                            <span class="input-icon">📧</span>
+                            <input type="email" id="loginEmail" name="email" placeholder="Enter your email" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group-icon">
+                        <label for="loginPassword">Password</label>
+                        <div class="input-wrapper">
+                            <span class="input-icon">🔒</span>
+                            <input type="password" id="loginPassword" name="password" placeholder="••••••••" required>
+                            <span class="toggle-password" onclick="togglePassword('loginPassword', this)">👁️</span>
+                        </div>
+                        <a href="#" class="forgot-link">Forgot Password?</a>
+                    </div>
+
+                    {% if error %}
+                    <div class="auth-error" id="loginError" style="display:block; margin-bottom: 15px; color: #f87171;">
+                        {{ error }}</div>
+                    {% else %}
+                    <div class="auth-error" id="loginError"></div>
+                    {% endif %}
+
+                    <button type="submit" class="auth-btn">Sign In</button>
+
+                    <div class="auth-switch">
+                        Don't have an account? <a href="#" onclick="switchForm('signup')">Sign Up</a>
+                    </div>
+                </form>
+
+                <!-- SIGNUP FORM -->
+                <form id="signupForm" class="auth-form">
+                    <div class="auth-header">
+                        <h2>Create Account</h2>
+                        <p>Start matching your skills today</p>
+                    </div>
+
+                    <div class="form-group-icon">
+                        <label for="signupUsername">Username</label>
+                        <div class="input-wrapper">
+                            <span class="input-icon">👤</span>
+                            <input type="text" id="signupUsername" placeholder="Enter a username" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group-icon">
+                        <label for="signupEmail">Email</label>
+                        <div class="input-wrapper">
+                            <span class="input-icon">📧</span>
+                            <input type="email" id="signupEmail" placeholder="Enter your email" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group-icon">
+                        <label for="signupPassword">Password</label>
+                        <div class="input-wrapper">
+                            <span class="input-icon">🔒</span>
+                            <input type="password" id="signupPassword" placeholder="Create a password" required>
+                            <span class="toggle-password" onclick="togglePassword('signupPassword', this)">👁️</span>
+                        </div>
+                    </div>
+
+                    <div class="auth-error" id="signupError"></div>
+
+                    <button type="submit" class="auth-btn">Create Account</button>
+
+                    <div class="auth-switch">
+                        Already have an account? <a href="#" onclick="switchForm('login')">Sign In</a>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function togglePassword(inputId, iconElement) {
+            const input = document.getElementById(inputId);
+            if (input.type === 'password') {
+                input.type = 'text';
+                iconElement.innerHTML = '🙈';
+            } else {
+                input.type = 'password';
+                iconElement.innerHTML = '👁️';
+            }
+        }
+
+        function switchForm(formName) {
+            document.getElementById('loginForm').classList.remove('active');
+            document.getElementById('signupForm').classList.remove('active');
+
+            // Allow slight delay for animation
+            setTimeout(() => {
+                if (formName === 'signup') {
+                    document.getElementById('signupForm').classList.add('active');
+                } else {
+                    document.getElementById('loginForm').classList.add('active');
+                }
+            }, 150);
+        }
+
+        // Handle Login handled via traditional form submission natively
+
+        // Handle Signup
+        document.getElementById('signupForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const username = document.getElementById('signupUsername').value;
+            const email = document.getElementById('signupEmail').value;
+            const password = document.getElementById('signupPassword').value;
+            const errorDiv = document.getElementById('signupError');
+
+            try {
+                const res = await fetch('/signup', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username, email, password })
+                });
+                const data = await res.json();
+
+                if (data.success) {
+                    // Instantly auto-login or switch to login manually
+                    switchForm('login');
+                    document.getElementById('loginEmail').value = email;
+                    document.getElementById('loginError').innerHTML = `<span style="color:#10b981;">${data.message || 'Account created! Please sign in.'}</span>`;
+                } else {
+                    errorDiv.textContent = data.message || 'Signup failed';
+                }
+            } catch (e) {
+                errorDiv.textContent = 'Server error. Please try again.';
+            }
+        });
+    </script>
+</body>
+
+</html>
