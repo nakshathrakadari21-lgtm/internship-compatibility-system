@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             try {
                 // 4. The API Call
-                const response = await fetch('http://127.0.0.1:5000/api/compatibility', {
+                const response = await fetch('/api/compatibility', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -135,7 +135,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <div class="error-msg">
                         <h3>Connection Error</h3>
                         <p>Server is unreachable, or an error occurred while fetching your matches.</p>
-                        <p style="font-size: 0.8rem; margin-top: 1rem; color: #7f1d1d; opacity: 0.8;">Check if Flask is running on port 5000</p>
+                        <p style="font-size: 0.8rem; margin-top: 1rem; color: #7f1d1d; opacity: 0.8;">Check your network connection or server status</p>
                     </div>
                 `;
             } finally {
